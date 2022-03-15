@@ -1,0 +1,33 @@
+{% extends "index.html" %} {% load static %} {% load crispy_forms_tags %}
+{% block content %}
+
+<br>
+<br>
+
+<div class="container" >
+  <div style="display: flex; justify-content: center">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/CC0ywOEAsIE?start=14" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+    <div style="margin: 25px 25px; width: 50%">
+      <div style="text-align: center">
+        <h2>Login</h2>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-lg btn-primary btn-block text-uppercase" type = "submit">
+          Login!
+        </button>
+        <a class="btn btn-lg btn-warning btn-block text-uppercase" href="{% url 'register' %}">
+          Sign Up!
+        </a>
+      </form>
+
+      <br>
+      <a href="/password_reset">Forgot Password?</a>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
