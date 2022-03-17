@@ -1,15 +1,5 @@
-{% extends "index.html" %} {% load static %} {% block searchform %}
-<form
-  class="form-inline my-2 my-lg-0 ml-5"
-  action="{% url 'search_posts' %}"
-  method="get"
->
-  <input name="p" type="text" placeholder="Search posts.." />
-  <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
-    Search
-  </button>
-</form>
-{% endblock searchform %} {% block content %}
+{% extends "index.html" %} {% load static %}
+{% block content %}
 <div class="container">
   <div class="row">
       <div class="col-3 order-2" id="sticky-sidebar">
@@ -153,11 +143,13 @@
 		>
 	{% endif %}
 
-{% endif %} 
+{% endif %}
 
-{% endblock content %} 
+{% endblock content %}
 
 {% block jsfiles %}
+
+
 <script>
   $(".like").click(function (e) {
     var id = this.id;

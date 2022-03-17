@@ -1,4 +1,10 @@
+import json
+
+from dal import autocomplete
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.html import format_html
+
 from .models import Profile
 from feed.models import Post
 from django.contrib import messages
@@ -11,6 +17,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 import random
 
 User = get_user_model()
+
 
 @login_required
 def users_list(request):
@@ -46,13 +53,15 @@ def users_list(request):
     }
     return render(request, "profiles/users_list.html", context)
 
+
 def friend_list(request):
     p = request.user.profile
     friends = p.friends.all()
-    context={
+    context = {
         'friends': friends
     }
     return render(request, "profiles/friend_list.html", context)
+
 
 @login_required
 def send_friend_request(request, id):
@@ -61,6 +70,7 @@ def send_friend_request(request, id):
         from_user=request.user,
         to_user=user)
     return HttpResponseRedirect('/profiles/{}'.format(user.profile.slug))
+
 
 @login_required
 def cancel_friend_request(request, id):
@@ -71,6 +81,7 @@ def cancel_friend_request(request, id):
     frequest.delete()
     return HttpResponseRedirect('/profiles/{}'.format(user.profile.slug))
 
+
 @login_required
 def accept_friend_request(request, id):
     from_user = get_object_or_404(User, id=id)
@@ -79,11 +90,12 @@ def accept_friend_request(request, id):
     user2 = from_user
     user1.profile.friends.add(user2.profile)
     user2.profile.friends.add(user1.profile)
-    if(FriendRequest.objects.filter(from_user=request.user, to_user=from_user).first()):
+    if (FriendRequest.objects.filter(from_user=request.user, to_user=from_user).first()):
         request_rev = FriendRequest.objects.filter(from_user=request.user, to_user=from_user).first()
         request_rev.delete()
     frequest.delete()
     return HttpResponseRedirect('/profiles/{}'.format(request.user.profile.slug))
+
 
 @login_required
 def delete_friend_request(request, id):
@@ -92,12 +104,14 @@ def delete_friend_request(request, id):
     frequest.delete()
     return HttpResponseRedirect('/profiles/{}'.format(request.user.profile.slug))
 
+
 def delete_friend(request, id):
     user_profile = request.user.profile
     friend_profile = get_object_or_404(Profile, id=id)
     user_profile.friends.remove(friend_profile)
     friend_profile.friends.remove(user_profile)
     return HttpResponseRedirect('/profiles/{}'.format(friend_profile.slug))
+
 
 @login_required
 def profile_view(request, slug):
@@ -135,6 +149,7 @@ def profile_view(request, slug):
 
     return render(request, "profiles/profile.html", context)
 
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -145,7 +160,8 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request, 'register.html', {'form':form})
+    return render(request, 'register.html', {'form': form})
+
 
 @login_required
 def edit_profile(request):
@@ -160,11 +176,12 @@ def edit_profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-    context ={
+    context = {
         'u_form': u_form,
         'p_form': p_form,
     }
     return render(request, 'profiles/edit_profile.html', context)
+
 
 @login_required
 def my_profile(request):
@@ -200,11 +217,14 @@ def my_profile(request):
 
     return render(request, "profiles/profile.html", context)
 
+
 @login_required
 def search_users(request):
     query = request.GET.get('q')
-    object_list = User.objects.filter(username__icontains=query)
-    context ={
-        'users': object_list
+    object_list = User.objects.filter(Q(username__icontains=query))
+    context = {
+        'users': object_list,
+        'name': object_list
     }
     return render(request, "profiles/search_users.html", context)
+

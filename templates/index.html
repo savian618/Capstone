@@ -27,13 +27,178 @@
           type="text/css"
           href="https://dl.dropboxusercontent.com/s/ecyb1drs5j1jyjf/styles.css?dl=0"
   />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link rel="stylesheet"
+        href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+        type="text/css"
+        media="all" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+          type="text/javascript">
+  </script>
+  <script
+          src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
+          type="text/javascript">
+
+  </script>
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"></script>
+  <!-- Jquery UI -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <style>
+  #myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: red; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+  }
+
+  #myBtn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+  }
+
+  #navmenu1 li {
+  float: left;
+  list-style-type: none;
+  display:inline;
+  padding: 5px 10px;
+  }
+
+  .navbar-brand{
+    display: flex;
+    font-size: 45px;
+    justify-content: center;}
+
+  .row{
+    font-size: 60;
+  }
+
+    * { box-sizing: border-box; }
+  body {
+    font: 16px Arial;
+  }
+  .autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+  }
+  input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+  }
+  input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+  input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+  }
+  .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+  }
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+
+  /* Dropdown button */
+  .dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+  }
+
+  /* Add a red background color to navbar links on hover */
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  /* Add a grey background color to dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  }
+  </style>
   {% block cssfiles %}{% endblock cssfiles %}
   <title>PicMe</title>
+
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand ml-4 mr-4" href="#"><b>PicMe</b></a>
   <button
           class="navbar-toggler"
           type="button"
@@ -45,45 +210,68 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+  <div class="container-fluid">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    {% if user.is_authenticated %}
+      <div class="navbar-header">
+        <a  class="navbar-brand" href="{% url 'feed' %}"><b>PicMe</b></a>
+      </div>
 
-      {% if user.is_authenticated %}
-      <a class="nav-item nav-link" href="{% url 'feed' %}">Home</a>
-      <a class="nav-item nav-link" href="{% url 'friend_list' %}"
-      >Friends</a
-      >
-      <a class="nav-item nav-link" href="{% url 'my_profile' %}">Profile</a>
-      <a class="nav-item nav-link" href="{% url 'post-create' %}"
-      >Create Post</a
-      >
-      <a
-              class="nav-item nav-link btn btn-danger ml-4 text-light"
-              href="{% url 'logout' %}"
-      >Logout</a
-      >
-      {% else %}
-      <a
-              class="nav-item nav-link btn btn-success ml-4 text-light"
-              href="{% url 'login' %}"
-      >Login</a
-      >
-      <a
-              class="nav-item nav-link btn btn-warning ml-3 text-light"
-              href="{% url 'register' %} "
-      >Register</a
-      >
-      {% endif %} {% block searchform %}{% endblock searchform %}
+
+    <div class ="collapse navbar-collapse">
+      <div class= "navbar-nav mx-auto">
+        <form onclick = "loadFunct()" autocomplete="off" action="{% url 'search_users' %}">
+          <div class="autocomplete" style="width:300px;">
+            <input id="myInput" type="text" name="q" placeholder="Search...">
+          </div>
+          <input type="submit">
+        </form>
+      </div>
     </div>
 
-  </div>
+      <div class ="collapse navbar-collapse">
+        <div class= "navbar-nav ml-auto">
+          <ul id="navmenu1">
+            <li><a class="active"  href="{% url 'feed' %}"><i class="fa fa-home" style="font-size:48px;"></i></a></li>
+            <li><a href="{% url 'my_profile' %}"><i class="fa fa-user" style="font-size:48px;"></i></a></li>
+            <li><a href="{% url 'users_list' %}"><i class="fa fa-globe" style="font-size:48px;"></i></a></li>
+            <li><a href="{% url 'post-create' %}"><i class="fa fa-camera-retro" style="font-size:48px;"></i></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!--
+        <form  action="{% url 'search_users' %}" method="get">
+          <input name = "q" type="text" placeholder="Search..">
+
+          <button type="submit">USERS</button>
+
+
+          <button type="submit" formaction="{% url 'search_posts' %}">
+            POSTS</button>
+
+        </form>
+
+      -->
+      <div class="dropdown">
+        <button type="button" class="fa fa-user-circle-o blueiconcolor dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="{% url 'edit_profile' %}" class="dropdown-item">Edit Profile</a>
+          <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+        </div>
+      </div>
+
+
+
+      </div>
+
+    {% else%}
+      <a class="navbar-brand ml-4 mr-4" href="{% url 'home' %}"><b>PicMe</b></a>
+  {% endif %} {% block searchform %}{% endblock searchform %}
+
 </nav>
 <div class="container">{% block content %}{% endblock content %}</div>
-
-
-
-
-
 
 
 
@@ -91,3 +279,97 @@
 </body>
 </html>
 
+
+<script>
+mybutton = document.getElementById("myBtn");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+function loadFunct(){
+    var products = {{names|safe}};
+    return products;
+}
+function autocomplete(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+              b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+
+autocomplete(document.getElementById("myInput"), loadFunct());
+</script>

@@ -1,4 +1,6 @@
 # pages/urls.py
+from django.template.defaulttags import url
+
 import feed
 from .views import HomePageView
 from feed.views import PostUpdateView, PostListView, UserPostListView
@@ -16,14 +18,14 @@ urlpatterns = [
     path('post/<int:pk>/delete/', feed.views.post_delete, name='post-delete'),
     path('search_posts/', feed.views.search_posts, name='search_posts'),
     path('user_posts/<str:username>', UserPostListView.as_view(), name='user-posts'),
-    path('users/', profiles_views.users_list, name='users_list'),
-    path('users/<slug>/', profiles_views.profile_view, name='profile_view'),
+    path('profiles/', profiles_views.users_list, name='users_list'),
+    path('profiles/<slug>/', profiles_views.profile_view, name='profile_view'),
     path('friends/', profiles_views.friend_list, name='friend_list'),
-    path('users/friend-request/send/<int:id>/', profiles_views.send_friend_request, name='send_friend_request'),
-    path('users/friend-request/cancel/<int:id>/', profiles_views.cancel_friend_request, name='cancel_friend_request'),
-    path('users/friend-request/accept/<int:id>/', profiles_views.accept_friend_request, name='accept_friend_request'),
-    path('users/friend-request/delete/<int:id>/', profiles_views.delete_friend_request, name='delete_friend_request'),
-    path('users/friend/delete/<int:id>/', profiles_views.delete_friend, name='delete_friend'),
+    path('profiles/friend-request/send/<int:id>/', profiles_views.send_friend_request, name='send_friend_request'),
+    path('profiles/friend-request/cancel/<int:id>/', profiles_views.cancel_friend_request, name='cancel_friend_request'),
+    path('profiles/friend-request/accept/<int:id>/', profiles_views.accept_friend_request, name='accept_friend_request'),
+    path('profiles/friend-request/delete/<int:id>/', profiles_views.delete_friend_request, name='delete_friend_request'),
+    path('profiles/friend/delete/<int:id>/', profiles_views.delete_friend, name='delete_friend'),
     path('edit-profile/', profiles_views.edit_profile, name='edit_profile'),
     path('my-profile/', profiles_views.my_profile, name='my_profile'),
     path('search_users/', profiles_views.search_users, name='search_users'),

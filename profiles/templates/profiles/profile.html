@@ -1,15 +1,5 @@
-{% extends "index.html" %} {% load static %} {% block searchform %}
-<form
-  class="form-inline my-2 my-lg-0 ml-5"
-  action="{% url 'search_users' %}"
-  method="get"
->
-  <input name="q" type="text" placeholder="Search users.." />
-  <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
-    Search
-  </button>
-</form>
-{% endblock searchform %} {% block content %}
+{% extends "index.html" %} {% load static %}
+{% block content %}
 <br /><br />
 <div class="main-content">
   <div class="container mt-7">
@@ -70,16 +60,16 @@
               {% else %} {% if button_status == 'not_friend' %}
               <small
                 ><a
-                  class="btn btn-primary"
-                  href="/users/friend-request/send/{{ u.id }}"
+                  class="fa fa-user-plus"
+                  href="/profiles/friend-request/send/{{ u.id }}"
                   >Add Friend</a
                 ></small
               >
               {% elif button_status == 'friend_request_sent' %}
               <small
                 ><a
-                  class="btn btn-warning"
-                  href="/users/friend-request/cancel/{{ u.id }}"
+                  class="fa fa-user-times"
+                  href="/profiles/friend-request/cancel/{{ u.id }}"
                   >Cancel Request</a
                 ></small
               >
@@ -87,14 +77,14 @@
               <small
                 ><a
                   class="btn btn-success mr-2"
-                  href="/users/friend-request/accept/{{ u.id }}"
+                  href="/profiles/friend-request/accept/{{ u.id }}"
                   >Accept Request</a
                 ></small
               >
               <small
                 ><a
                   class="btn btn-danger"
-                  href="/users/friend-request/delete/{{ u.id }}"
+                  href="/profiles/friend-request/delete/{{ u.id }}"
                   >Reject Request</a
                 ></small
               >
@@ -102,7 +92,7 @@
               <small
                 ><a
                   class="btn btn-danger"
-                  href="/users/friend/delete/{{ u.id }}"
+                  href="/profiles/friend/delete/{{ u.id }}"
                   >UnFriend</a
                 ></small
               >
@@ -170,12 +160,12 @@
             <small class="float-right">
               <a
                 class="btn btn-success mr-2"
-                href="/users/friend-request/accept/{{ r_request.from_user.id }}"
+                href="/profiles/friend-request/accept/{{ r_request.from_user.id }}"
                 >Accept</a
               >
               <a
                 class="btn btn-danger"
-                href="/users/friend-request/delete/{{ r_request.from_user.id }}"
+                href="/profiles/friend-request/delete/{{ r_request.from_user.id }}"
                 >Reject</a
               >
             </small>
@@ -188,5 +178,4 @@
     {% endif %}
   </div>
 </div>
-
 {% endblock content %}
