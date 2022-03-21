@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chat.apps.ChatConfig',
     'profiles.apps.ProfilesConfig',
     'feed.apps.FeedConfig',
     'django.contrib.admin',

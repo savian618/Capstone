@@ -34,22 +34,22 @@
                 </p>
                 {% endif %}
                 <div class="card-footer">
-                    <button class="btn btn-white mr-3 like" id="{{ post.id }}">
+                    <button class="fa fa-heart-o" id="{{ post.id }}">
                         {% if is_liked %}
                         <a
-                                href="{% url 'post-like' %}"
+                                href="{% url 'like' %}"
                                 style="color: red"
                                 id="likebtn{{ post.id }}"
                         >
-                            Unlike | {{post.likes.count}}</a
+                            </a
                         >
                         {% else %}
                         <a
-                                href="{% url 'post-like' %}"
-                                style="color: green"
+                                href="{% url 'like' %}"
+                                style="color: black"
                                 id="likebtn{{ post.id }}"
                         >
-                            Like | {{post.likes.count}}</a
+                            </a
                         >
                         {% endif %}
                     </button>

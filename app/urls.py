@@ -2,6 +2,7 @@
 from django.template.defaulttags import url
 
 import feed
+from chat.views import ListThreads, CreateThread, ThreadView, CreateMessage
 from .views import HomePageView
 from feed.views import PostUpdateView, PostListView, UserPostListView
 from django.urls import path, include
@@ -13,7 +14,7 @@ urlpatterns = [
     path('feed/', PostListView.as_view(), name='feed'),
     path('post/new/', feed.views.create_post, name='post-create'),
     path('post/<int:pk>/', feed.views.post_detail, name='post-detail'),
-    path('like/', feed.views.like, name='post-like'),
+    path('like/', feed.views.like, name='like'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', feed.views.post_delete, name='post-delete'),
     path('search_posts/', feed.views.search_posts, name='search_posts'),
@@ -29,6 +30,10 @@ urlpatterns = [
     path('edit-profile/', profiles_views.edit_profile, name='edit_profile'),
     path('my-profile/', profiles_views.my_profile, name='my_profile'),
     path('search_users/', profiles_views.search_users, name='search_users'),
+    path('inbox/', ListThreads.as_view(), name='inbox'),
+    path('inbox/create-thread/', CreateThread.as_view(), name='create-thread'),
+    path('inbox/<int:pk>/', ThreadView.as_view(), name='thread'),
+    path('inbox/<int:pk>/create-message/', CreateMessage.as_view(), name='create-message'),
     path('register/', profiles_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),

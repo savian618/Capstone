@@ -1,5 +1,8 @@
 {% extends "index.html" %} {% load static %}
 {% block content %}
+
+
+
 <div class="container">
   <div class="row">
       <div class="col-3 order-2" id="sticky-sidebar">
@@ -44,7 +47,7 @@
                               </div>
                           </div>
                           {% else %}
-                          <h5><i>No new people available!</i></h5>
+                            <h5><i>No new people available!</i></h5>
                           {% endif %}
                       </div>
                   </div>
@@ -84,27 +87,27 @@
         </p>
         {% endif %}
         <div class="card-footer">
-          <button class="btn btn-white mr-3 like" id="{{ post.id }}">
+          <button class="fa fa-heart-o" id="{{ post.id }}">
             {% if post in liked_post %}
             <a
-              href="{% url 'post-like' %}"
+              href="{% url 'like' %}"
               style="color: red"
               id="likebtn{{ post.id }}"
             >
-              Unlike</a
+              </a
             >
-            | {{post.likes.count}} {% else %}
+            {% else %}
             <a
-              href="{% url 'post-like' %}"
-              style="color: green"
+              href="{% url 'like' %}"
+              style="color: black"
               id="likebtn{{ post.id }}"
             >
-              Like</a
+              </a
             >
-            | {{post.likes.count}} {% endif %}
+            {% endif %}
           </button>
-          <a class="btn btn-outline-info" href="{% url 'post-detail' post.id %}"
-            >Comments | {{ post.details.count }}</a
+          <a class="fa fa-comment-o" href="{% url 'post-detail' post.id %}"
+            ></a
           >
         </div>
       </div>

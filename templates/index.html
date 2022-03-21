@@ -190,6 +190,24 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  .blue_box, .gray_box {
+  display: block;
+  clear:both;
+  }
+  .blue_box span {
+  background-color: blue;
+  color: white;
+  padding: 10px 5px;
+  display: block;
+  float: right;
+  }
+  .gray_box span {
+  background-color: gray;
+  color: white;
+  padding: 10px 5px;
+  display: block;
+  float: left;
   }
   </style>
   {% block cssfiles %}{% endblock cssfiles %}
@@ -234,7 +252,7 @@
           <ul id="navmenu1">
             <li><a class="active"  href="{% url 'feed' %}"><i class="fa fa-home" style="font-size:48px;"></i></a></li>
             <li><a href="{% url 'my_profile' %}"><i class="fa fa-user" style="font-size:48px;"></i></a></li>
-            <li><a href="{% url 'users_list' %}"><i class="fa fa-globe" style="font-size:48px;"></i></a></li>
+            <li><a href="{% url 'inbox' %}"><i class="fa fa-exchange" style="font-size:48px;"></i></a></li>
             <li><a href="{% url 'post-create' %}"><i class="fa fa-camera-retro" style="font-size:48px;"></i></a></li>
           </ul>
         </div>
