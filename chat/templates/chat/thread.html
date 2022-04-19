@@ -12,6 +12,7 @@
                     height="30"
                     alt=""
             /></a>  {{ thread.user }}</h5>
+
             {% else %}
             <h5><a href="{{ thread.receiver.profile.get_absolute_url }}"><img
                     src="{{ post.receiver.profile.image.url }}"

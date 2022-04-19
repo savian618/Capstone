@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -85,3 +86,10 @@ class CreateMessage(View):
 
         message.save()
         return redirect('thread', pk=pk)
+
+@login_required
+def post_delete(request, pk):
+    message = ThreadModel.objects.get(pk=pk)
+    if request.user == message.user:
+        ThreadModel.objects.get(pk=pk).delete()
+    return redirect('inbox')
