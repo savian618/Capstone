@@ -141,7 +141,7 @@ def post_delete(request, pk):
     post = Post.objects.get(pk=pk)
     if request.user == post.user_name:
         Post.objects.get(pk=pk).delete()
-    return redirect('feed')
+    return redirect('feed', pk=pk)
 
 
 @login_required
@@ -166,7 +166,7 @@ def like(request, pk):
     else:
         Like.objects.create(user=user, post=post)
 
-    return redirect('feed')
+    return redirect('post-detail', pk)
 
 
 @login_required

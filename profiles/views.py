@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.html import format_html
 
+from chat.models import ThreadModel
 from .models import Profile
 from feed.models import Post
 from django.contrib import messages
@@ -104,7 +105,7 @@ def delete_friend_request(request, id):
     frequest.delete()
     return HttpResponseRedirect('/profiles/{}'.format(request.user.profile.slug))
 
-
+@login_required
 def delete_friend(request, id):
     user_profile = request.user.profile
     friend_profile = get_object_or_404(Profile, id=id)
@@ -116,6 +117,7 @@ def delete_friend(request, id):
 @login_required
 def profile_view(request, slug):
     p = Profile.objects.filter(slug=slug).first()
+    posts = Post.objects.filter(user_name=p.user)
     u = p.user
     sent_friend_requests = FriendRequest.objects.filter(from_user=p.user)
     rec_friend_requests = FriendRequest.objects.filter(to_user=p.user)
@@ -144,7 +146,8 @@ def profile_view(request, slug):
         'friends_list': friends,
         'sent_friend_requests': sent_friend_requests,
         'rec_friend_requests': rec_friend_requests,
-        'post_count': user_posts.count
+        'post_count': user_posts.count,
+        'posts': posts
     }
 
     return render(request, "profiles/profile.html", context)
@@ -228,3 +231,18 @@ def search_users(request):
     }
     return render(request, "profiles/search_users.html", context)
 
+
+@login_required
+def thread_create(request, id):
+    r = get_object_or_404(User, id=id)
+    threads = ThreadModel.objects.filter(user=request.user, receiver=r).exists()
+    if(threads):
+        thread = ThreadModel.objects.filter(user=request.user, receiver=r).first()
+    else:
+        thread = ThreadModel(
+            user=request.user,
+            receiver=r
+        )
+        thread.save()
+
+    return redirect('thread', pk=thread.pk)

@@ -31,6 +31,7 @@ urlpatterns = [
     path('profiles/friend-request/delete/<int:id>/', profiles_views.delete_friend_request, name='delete_friend_request'),
     path('profiles/friend/delete/<int:id>/', profiles_views.delete_friend, name='delete_friend'),
     path('edit-profile/', profiles_views.edit_profile, name='edit_profile'),
+    path('thread-create/<int:id>/', profiles_views.thread_create, name='thread_create'),
     path('my-profile/', profiles_views.my_profile, name='my_profile'),
     path('search_users/', profiles_views.search_users, name='search_users'),
     path('inbox/', ListThreads.as_view(), name='inbox'),

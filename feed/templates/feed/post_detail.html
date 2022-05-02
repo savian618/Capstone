@@ -34,9 +34,8 @@
                 </p>
                 {% endif %}
                 <div class="card-footer">
-                    <a href='http://127.0.0.1:8000/likes/{{post.id}}' onClick="MyWindow=window.open(href,'MyWindow','width=600,height=300'); return false;">Click Here</a>
                     <p> {{post.likes.count}} Likes <br></p>
-                    {% if post in liked_post %}
+                    {% if is_liked %}
                     <a
                             href="{% url 'like' post.id %}"
                             class="fa fa-heart"
@@ -126,29 +125,4 @@
         </div>
     </div>
 </div>
-{% endblock content %}{% block jsfiles %}
-<script>
-  $(".like").click(function (e) {
-    var id = this.id;
-    var href = $(".like").find("a").attr("href");
-    e.preventDefault();
-
-    $.ajax({
-      url: href,
-      data: {
-        likeId: id,
-      },
-      success: function (response) {
-        if (response.liked) {
-          $("#likebtn" + id).html("Unlike | {{post.likes.count}}");
-          $("#likebtn" + id).css("color", "red");
-        } else {
-          $("#likebtn" + id).html("Like | {{post.likes.count}}");
-          $("#likebtn" + id).css("color", "green");
-        }
-      },
-    });
-  });
-</script>
-
-{% endblock jsfiles %}
+{% endblock content %}
