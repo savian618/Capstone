@@ -34,25 +34,24 @@
                 </p>
                 {% endif %}
                 <div class="card-footer">
-                    <button class="fa fa-heart-o" id="{{ post.id }}">
-                        {% if is_liked %}
-                        <a
-                                href="{% url 'like' %}"
-                                style="color: red"
-                                id="likebtn{{ post.id }}"
-                        >
-                            </a
-                        >
-                        {% else %}
-                        <a
-                                href="{% url 'like' %}"
-                                style="color: black"
-                                id="likebtn{{ post.id }}"
-                        >
-                            </a
-                        >
-                        {% endif %}
-                    </button>
+                    <a href='http://127.0.0.1:8000/likes/{{post.id}}' onClick="MyWindow=window.open(href,'MyWindow','width=600,height=300'); return false;">Click Here</a>
+                    <p> {{post.likes.count}} Likes <br></p>
+                    {% if post in liked_post %}
+                    <a
+                            href="{% url 'like' post.id %}"
+                            class="fa fa-heart"
+                            style="color: red"
+                    >
+                    </a
+                    >
+                    {% else %}
+                    <a
+                            href="{% url 'like' post.id %}"
+                            class="fa fa-heart-o"
+                            style="color: black"
+                    ></a
+                    >
+                    {% endif %}
 
                     {% if post.user_name == user %}
                     <a

@@ -13,10 +13,12 @@ class ListThreads(View):
         threads = ThreadModel.objects.filter(Q(user=request.user) | Q(receiver=request.user))
 
         context = {
-            'threads': threads
+            'threads': threads,
+            'u': request.user
         }
 
         return render(request, 'chat/inbox.html', context)
+
 
 class CreateThread(View):
     def get(self, request, *args, **kwargs):
@@ -54,8 +56,6 @@ class CreateThread(View):
             return redirect('create-thread')
 
 
-
-
 class ThreadView(View):
     def get(self, request, pk, *args, **kwargs):
         form = MessageForm()
@@ -64,10 +64,12 @@ class ThreadView(View):
         context = {
             'thread': thread,
             'form': form,
-            'message_list': message_list
+            'message_list': message_list,
+            'u': request.user,
         }
 
         return render(request, 'chat/thread.html', context)
+
 
 class CreateMessage(View):
     def post(self, request, pk, *args, **kwargs):
@@ -87,9 +89,10 @@ class CreateMessage(View):
         message.save()
         return redirect('thread', pk=pk)
 
+
 @login_required
-def post_delete(request, pk):
-    message = ThreadModel.objects.get(pk=pk)
-    if request.user == message.user:
+def thread_delete(request, pk):
+    thread = ThreadModel.objects.get(pk=pk)
+    if request.user == thread.user:
         ThreadModel.objects.get(pk=pk).delete()
     return redirect('inbox')

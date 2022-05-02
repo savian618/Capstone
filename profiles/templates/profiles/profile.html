@@ -57,11 +57,21 @@
               <a class="btn btn-info" href="{% url 'edit_profile' %}"
                 >Edit Profile</a
               >
-              {% else %} {% if button_status == 'not_friend' %}
+              {% else %}
+
+              <small
+              ><a
+                      class="fa fa-user-times"
+                      href="/profiles/friend-request/cancel/{{ u.id }}"
+              >Message</a
+              ></small
+              >
+
+              {% if button_status == 'not_friend' %}
               <small
                 ><a
                   class="fa fa-user-plus"
-                  href="/profiles/friend-request/send/{{ u.id }}"
+                  href="/profiles/friend-request/send/{{ u.username }}"
                   >Add Friend</a
                 ></small
               >

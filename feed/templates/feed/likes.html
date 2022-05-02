@@ -1,0 +1,64 @@
+{% extends "index.html" %} {% load static %}
+{% block content %}
+<<div class="row mb-3">
+    <div class="card col-md-12 p-5 shadow-sm">
+        {% for like in likes %}
+        <a class="stretched-link"href="{{ like.user.get_absolute_url }}"
+            ><img
+                    src="{{ like.user.image.url }}"
+                    class="rounded mr-2"
+                    width="40"
+                    height="40"
+                    alt=""
+            /></a>
+            <a class="text-dark" href="{{ like.user.get_absolute_url }}"
+            ><b>{{ like.user }}</b></a
+            >
+            <p align="right">
+            {% if like.user == u %}
+            <p> </p>
+            {% elif like.user not in users and like.user not in sent %}
+            <small class="float-right"><a
+
+                    class="btn btn-primary mr-2"
+                    href="{% url 'send_friend_request' like.user.id %}"
+            >Add Friend </a
+            ></small>
+            {% elif like.user not in users and like.user in sent%}
+            <small class="float-right"><a
+                    class="fa fa-user-times"
+                    href="{% url 'cancel_friend_request' like.user.id %}"
+            >Cancel Request</a
+            ></small
+            >
+            {% elif like.user not in users and like.user in received %}
+            <small class="float-right" ><a
+                    class="btn btn-success mr-2"
+                    href="{% url 'accept_friend_request' like.user.id %}"
+            >Accept Request</a
+            ></small
+            >
+            <small class="float-right"
+            ><a
+                    class="btn btn-danger"
+                    href="{% url 'delete_friend_request' like.user.id %}"
+            >Reject Request</a
+            ></small
+            >
+            {% else %}
+            <small class="float-right"
+            ><a
+                    class="btn btn-danger"
+                    href="{% url 'delete_friend_request' like.user.id %}"
+            >UnFriend</a
+            ></small
+            >
+            <br>
+            </p>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock content %}

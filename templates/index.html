@@ -3,6 +3,10 @@
 <html>
 <head>
   <!-- Required meta tags -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <meta charset="utf-8" />
   <meta
           name="viewport"
@@ -54,6 +58,59 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <style>
+
+
+  .chat {
+    width: 400px;
+}
+
+.bubble{
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 5px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+.bubble::before {
+    background-color: #F2F2F2;
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+    width:  20px;
+}
+
+.me {
+    float: left;
+    margin: 5px 45px 5px 20px;
+}
+
+.me::before {
+    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    left: -9px;
+}
+
+.you {
+    float: right;
+    margin: 5px 20px 5px 45px;
+}
+
+.you::before {
+    box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+    right: -9px;
+}
+
+
+
   #myBtn {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
@@ -238,7 +295,7 @@
 
     <div class ="collapse navbar-collapse">
       <div class= "navbar-nav mx-auto">
-        <form onclick = "loadFunct()" autocomplete="off" action="{% url 'search_users' %}">
+        <form onclick = "loadFunct()" autocomplete="on" action="{% url 'search_users' %}">
           <div class="autocomplete" style="width:300px;">
             <input id="myInput" type="text" name="q" placeholder="Search...">
           </div>
@@ -251,6 +308,7 @@
         <div class= "navbar-nav ml-auto">
           <ul id="navmenu1">
             <li><a class="active"  href="{% url 'feed' %}"><i class="fa fa-home" style="font-size:48px;"></i></a></li>
+            <li><a class="active"  href="{% url 'explore' %}"><i class="fa fa-globe" style="font-size:48px;"></i></a></li>
             <li><a href="{% url 'my_profile' %}"><i class="fa fa-user" style="font-size:48px;"></i></a></li>
             <li><a href="{% url 'inbox' %}"><i class="fa fa-exchange" style="font-size:48px;"></i></a></li>
             <li><a href="{% url 'post-create' %}"><i class="fa fa-camera-retro" style="font-size:48px;"></i></a></li>
@@ -271,13 +329,22 @@
         </form>
 
       -->
-      <div class="dropdown">
-        <button type="button" class="fa fa-user-circle-o blueiconcolor dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
+      <div class="dropdown bg-dark">
+        <a type="button" class="rounded-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <img src="{{ user.profile.image.url }}"
+                width="40"
+                height="40"
+                alt="avatar">
+                <!--style="border-radius: 50%; box-shadow: none"-->
+
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" style="position: relative; z-index: 999">
           <a href="{% url 'edit_profile' %}" class="dropdown-item">Edit Profile</a>
           <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
         </div>
+      </div>
+
+
       </div>
 
 
@@ -294,8 +361,7 @@
 
 
 
-</body>
-</html>
+
 
 
 <script>
@@ -391,3 +457,6 @@ document.addEventListener("click", function (e) {
 
 autocomplete(document.getElementById("myInput"), loadFunct());
 </script>
+
+</body>
+</html>

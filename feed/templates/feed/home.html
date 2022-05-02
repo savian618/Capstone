@@ -4,147 +4,157 @@
 
 
 <div class="container">
-  <div class="row">
-      <div class="col-3 order-2" id="sticky-sidebar">
-          <div class="sticky-top">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-8">
-                          {% if users %}
-                          <div class="card card-signin my-5">
-                              <div class="card-body">
-                                  {% for user_p in users %}
-                                  <a href="{{ user_p.get_absolute_url }}"
-                                  ><img
-                                          src="{{ user_p.image.url }}"
-                                          class="rounded mr-2"
-                                          width="40"
-                                          height="40"
-                                          alt=""
-                                  /></a>
-                                  <a class="text-dark" href="{{ user_p.get_absolute_url }}"
-                                  ><b>{{ user_p }}</b></a
-                                  >
-                                  {% if not user_p.user in sent %}
-                                  <small class="float-right">
-                                      <a
-                                              class="btn btn-primary mr-2"
-                                              href="{% url 'send_friend_request' user_p.id %}"
-                                      >Add Friend</a
-                                      >
-                                  </small>
-                                  {% else %}
-                                  <small class="float-right">
-                                      <a
-                                              class="btn btn-warning mr-2"
-                                              href="{% url 'cancel_friend_request' user_p.id %}"
-                                      >Cancel Request</a
-                                      >
-                                  </small>
-                                  {% endif %}
-                                  <br /><br />
-                                  {% endfor %}
-                              </div>
-                          </div>
-                          {% else %}
+    <div class="row">
+        <div class="col-3 order-2" id="sticky-sidebar">
+            <div class="sticky-top">
+                <div class="container-fluid" style="width:650px">
+                    <div class="row">
+                        <div class="col-md-8">
+                            {% if users %}
+                            <div class="card card">
+                                <div class="card-body">
+                                    <a href="{{ user.profile.get_absolute_url }}"
+                                    ><img
+                                            src="{{ user.profile.image.url }}"
+                                            class="rounded mr-2"
+                                            width="40"
+                                            height="40"
+                                            alt=""
+                                    />
+                                    <a class="row2" >
+                                    <a class="text-dark" href="{{ user.profile.get_absolute_url }}"
+                                    >
+                                        <b>{{ user }}</b> </a
+                                    >
+                                    </a>
+                                    </a>
+                                    </a>
+                                    <p><br><br></p>
+
+                                    <p style="font-family: Arial"> Suggestions For You</p>
+                                    {% for user_p in users %}
+                                    <a href="{{ user_p.get_absolute_url }}"
+                                    ><img
+                                            src="{{ user_p.image.url }}"
+                                            class="rounded mr-2"
+                                            width="40"
+                                            height="40"
+                                            alt=""
+                                    /></a>
+                                    <a class="text-dark" href="{{ user_p.get_absolute_url }}"
+                                    ><b>{{ user_p }}</b></a
+                                    >
+                                    <small class="float-right">
+                                        <a
+                                                class="btn btn-primary mr-2"
+                                                href="{% url 'send_friend_request' user_p %}"
+                                        >Add Friend</a
+                                        >
+                                    </small>
+                                    <br /><br />
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% else %}
                             <h5><i>No new people available!</i></h5>
-                          {% endif %}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    <div class="col-md-8">
-      {% for post in posts %}
-      <div class="card card-signin my-5">
-        <div class="card-body">
-          <a href="{{ post.user_name.profile.get_absolute_url }}"
-            ><img
-              src="{{ post.user_name.profile.image.url }}"
-              class="rounded-circle"
-              width="30"
-              height="30"
-              alt=""
-          /></a>
-          <a
-            class="text-dark"
-            href="{{ post.user_name.profile.get_absolute_url }}"
-            ><b>{{ post.user_name }}</b></a
-          >
-          <br /><small class="text-muted"
-            >Posted on {{ post.date_posted }}</small
-          >
-          <br /><br />
-          <p class="card-text text-dark">{{ post.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="{% url 'post-detail' post.id %}"
-          ><img class="card-img-top" src="{{ post.pic.url }}" alt=""
-        /></a>
-        {% if post.tags %}
-        <br />
-        <p class="text-danger ml-3">
-          <b>Tags: <i>{{ post.tags }}</i></b>
-        </p>
-        {% endif %}
-        <div class="card-footer">
-          <button class="fa fa-heart-o" id="{{ post.id }}">
-            {% if post in liked_post %}
-            <a
-              href="{% url 'like' %}"
-              style="color: red"
-              id="likebtn{{ post.id }}"
-            >
-              </a
-            >
-            {% else %}
-            <a
-              href="{% url 'like' %}"
-              style="color: black"
-              id="likebtn{{ post.id }}"
-            >
-              </a
-            >
-            {% endif %}
-          </button>
-          <a class="fa fa-comment-o" href="{% url 'post-detail' post.id %}"
-            ></a
-          >
+        <div class="col-md-8">
+            {% for post in posts %}
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <a href="{{ post.user_name.profile.get_absolute_url }}"
+                    ><img
+                            src="{{ post.user_name.profile.image.url }}"
+                            class="rounded-circle"
+                            width="30"
+                            height="30"
+                            alt=""
+                    /></a>
+                    <a
+                            class="text-dark"
+                            href="{{ post.user_name.profile.get_absolute_url }}"
+                    ><b>{{ post.user_name }}</b></a
+                    >
+                    <br /><small class="text-muted"
+                >Posted on {{ post.date_posted }}</small
+                >
+                    <br /><br />
+                    <p class="card-text text-dark">{{ post.description }}</p>
+                </div>
+                <a href="{% url 'post-detail' post.id %}"
+                ><img class="card-img-top" src="{{ post.pic.url }}" alt=""
+                /></a>
+                {% if post.tags %}
+                <br />
+                <p class="text-danger ml-3">
+                    <b>Tags: <i>{{ post.tags }}</i></b>
+                </p>
+                {% endif %}
+                <div class="card-footer">
+                    <a
+                            class="text-dark"
+                    ><b>{{post.likes.count}} Likes<br></b></a>
+                    {% if post in liked_post %}
+                    <a
+                            href="{% url 'like' post.id %}"
+                            class="fa fa-heart"
+                            style="color: red"
+                    >
+                    </a
+                    >
+                    {% else %}
+                    <a
+                            href="{% url 'like' post.id %}"
+                            class="fa fa-heart-o"
+                            style="color: black"
+                    ></a
+                    >
+
+                    {% endif %}
+                    <a class="fa fa-comment-o" href="{% url 'post-detail' post.id %}"
+                    ></a
+                    >
+                </div>
+            </div>
+            {% endfor %}
         </div>
-      </div>
-      {% endfor %}
     </div>
-  </div>
 </div>
 
-{% if is_paginated %} 
-	{% if page_obj.has_previous %}
-		<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-		<a
-		  class="btn btn-outline-info mb-4"
-		  href="?page={{ page_obj.previous_page_number }}"
-		  >Previous</a
-		>
-	{% endif %}
-	{% for num in page_obj.paginator.page_range %}
-		{% if page_obj.number == num %}
-			<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-		{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-			<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-		{% endif %}
-	{% endfor %}
+{% if is_paginated %}
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+<a
+        class="btn btn-outline-info mb-4"
+        href="?page={{ page_obj.previous_page_number }}"
+>Previous</a
+>
+{% endif %}
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
 
-	{% if page_obj.has_next %}
-		<a
-		  class="btn btn-outline-info mb-4"
-		  href="?page={{ page_obj.next_page_number }}"
-		  >Next</a
-		>
-		<a
-		  class="btn btn-outline-info mb-4"
-		  href="?page={{ page_obj.paginator.num_pages }}"
-		  >Last</a
-		>
-	{% endif %}
+{% if page_obj.has_next %}
+<a
+        class="btn btn-outline-info mb-4"
+        href="?page={{ page_obj.next_page_number }}"
+>Next</a
+>
+<a
+        class="btn btn-outline-info mb-4"
+        href="?page={{ page_obj.paginator.num_pages }}"
+>Last</a
+>
+{% endif %}
 
 {% endif %}
 
@@ -154,26 +164,28 @@
 
 
 <script>
-  $(".like").click(function (e) {
+$("#like").click(function() {
     var id = this.id;
-    var href = $(".like").find("a").attr("href");
+    var href = $(this).attr('href');
     e.preventDefault();
 
     $.ajax({
-      url: href,
-      data: {
-        likeId: id,
-      },
-      success: function (response) {
+        type: 'POST'
+        url: href,
+        data: {
+        likeId: $(this).attr('name')
+    },
+    success: function (response) {
         if (response.liked) {
-          $("#likebtn" + id).html("Unlike");
-          $("#likebtn" + id).css("color", "red");
-        } else {
-          $("#likebtn" + id).html("Like");
-          $("#likebtn" + id).css("color", "green");
+            $("#likebtn" + id).html("Unlike");
+            $("#likebtn" + id).css("color", "red");
         }
-      },
+        else {
+            $("#likebtn" + id).html("Like");
+            $("#likebtn" + id).css("color", "green");
+        }
+    },
     });
-  });
+});
 </script>
 {% endblock jsfiles %}

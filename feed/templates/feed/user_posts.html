@@ -3,7 +3,6 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-        {% if friends %}
           {% for post in posts %}
           <div class="card card-signin my-5">
             <div class="card-body">
@@ -36,27 +35,29 @@
             </p>
             {% endif %}
             <div class="card-footer">
-              <button class="btn btn-white mr-3 like" id="{{ post.id }}">
+                <a
+                        class="text-dark"
+                ><b>{{post.likes.count}} Likes<br></b></a>
                 {% if post in liked_post %}
                 <a
-                  href="{% url 'post-like' %}"
-                  style="color: red"
-                  id="likebtn{{ post.id }}"
+                        href="{% url 'like' post.id %}"
+                        class="fa fa-heart"
+                        style="color: red"
                 >
-                  Unlike</a
+                </a
                 >
-                | {{post.likes.count}} {% else %}
+                {% else %}
                 <a
-                  href="{% url 'post-like' %}"
-                  style="color: green"
-                  id="likebtn{{ post.id }}"
+                        href="{% url 'like' post.id %}"
+                        class="fa fa-heart-o"
+                        style="color: black"
+                ></a
                 >
-                  Like</a
-                >
-                | {{post.likes.count}} {% endif %}
+
+                {% endif %}
               </button>
               <a class="fa fa-comment-o" href="{% url 'post-detail' post.id %}"
-                >Comments | {{ post.details.count }}</a
+                > | {{ post.details.count }}</a
               >
                 </button>
                 <a class="btn btn-outline-danger" href="{% url 'post-delete' post.id %}"
@@ -100,7 +101,7 @@
 {% endif %}
 {% endblock content %}{% block jsfiles %}
 <script>
-  $(".like").click(function (e) {
+  $('.like').on('click', function(event)) {
     var id = this.id;
     var href = $(".like").find("a").attr("href");
     e.preventDefault();

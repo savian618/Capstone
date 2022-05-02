@@ -17,6 +17,7 @@
     </div>
 
     {% for thread in threads.all %}
+    {% if u == thread.receiver %}
     <div class="row mb-3">
         <div class="card col-md-12 p-5 shadow-sm">
             <a class="stretched-link" href="{% url 'thread' thread.pk %}"><img
@@ -24,9 +25,21 @@
                     class="rounded-circle"
                     width="30"
                     height="30"
-                    alt=""/> {{ thread.user }}</a>
+                    alt=""/> {{thread.user}}</a>
         </div>
     </div>
+    {% else %}
+    <div class="row mb-3">
+        <div class="card col-md-12 p-5 shadow-sm">
+            <a class="stretched-link" href="{% url 'thread' thread.pk %}"><img
+                    src="{{ thread.receiver.profile.image.url }}"
+                    class="rounded-circle"
+                    width="30"
+                    height="30"
+                    alt=""/> {{ thread.receiver }}</a>
+        </div>
+    </div>
+    {% endif %}
     {% endfor %}
 </div>
 

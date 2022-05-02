@@ -51,7 +51,7 @@ def users_list(request):
         'users': friends,
         'sent': sent_to
     }
-    return render(request, "profiles/users_list.html", context)
+    return render(request, "/Users/savian/ct/feed/templates/feed/home.html", context)
 
 
 def friend_list(request):
@@ -64,12 +64,12 @@ def friend_list(request):
 
 
 @login_required
-def send_friend_request(request, id):
-    user = get_object_or_404(User, id=id)
+def send_friend_request(request, username):
+    user = get_object_or_404(User, username=username)
     frequest, created = FriendRequest.objects.get_or_create(
         from_user=request.user,
         to_user=user)
-    return HttpResponseRedirect('/profiles/{}'.format(user.profile.slug))
+    return HttpResponseRedirect('/profiles/{}'.format(username))
 
 
 @login_required

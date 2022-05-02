@@ -5,24 +5,33 @@
     <div class="row">
         <div class="card col-md-12 mt-5 p-3 shadow-sm">
             {% if thread.receiver == request.user %}
-            <h5><a href="{{ thread.user.profile.get_absolute_url }}"><img
+            <div><a href="{{ thread.user.profile.get_absolute_url }}"><img
                     src="{{ thread.user.profile.image.url }}"
                     class="rounded-circle"
                     width="30"
                     height="30"
                     alt=""
-            /></a>  {{ thread.user }}</h5>
-
+            /></a>  {{ thread.user }}<a
+                    class="btn btn-danger float-right"
+                    href="{% url 'inbox-delete' thread.pk %}"
+                    style="text-align:right"
+            >Delete</a></div>
             {% else %}
-            <h5><a href="{{ thread.receiver.profile.get_absolute_url }}"><img
-                    src="{{ post.receiver.profile.image.url }}"
+            <div><a href="{{ thread.receiver.profile.get_absolute_url }}"><img
+                    src="{{ thread.receiver.profile.image.url }}"
                     class="rounded-circle"
                     width="30"
                     height="30"
                     alt=""
-            /></a>  {{ thread.receiver }}</h5>
+            /></a>  {{ thread.receiver }}
+                <a
+                    class="btn btn-danger float-right"
+                    href="{% url 'inbox-delete' thread.pk %}"
+                    style="text-align:right"
+            >Delete</a></div>
             {% endif %}
         </div>
+
     </div>
 
     {% if message_list.all.count == 0 %}
@@ -36,14 +45,30 @@
     {% for message in message_list %}
     <div class="row">
         <div class="container">
-            {% if message.sender_user == request.user %}
-            <div class="sent-message my-3" align="right">
-                <p>{{ thread.receiver }}:{{ message.body }}</p>
-            </div>
-            {% elif message.receiver_user == request.user %}
-            <div class="received-message my-3">
-                <p>{{ thread.user }}:{{ message.body }}</p>
-            </div>
+            {% if message.sender_user == u %}
+                <a href="{{ request.user.profile.get_absolute_url }}"><img
+                        src="{{ request.user.profile.image.url }}"
+                        class="rounded-circle"
+                        width="30"
+                        height="30"
+                        alt=""
+                        align="right"
+                /></a>
+                <div class="bubble you" align="right">
+                    <p>{{ message.body }}</p>
+                </div>
+            {% else %}
+                <a href="{{ message.sender_user.profile.get_absolute_url }}"><img
+                        src="{{ message.sender_user.profile.image.url }}"
+                        class="rounded-circle"
+                        width="30"
+                        height="30"
+                        alt=""
+                        align="left"
+                /></a>
+                <div class="bubble me" align="left">
+                    <p>{{ message.body }}</p>
+                </div>
             {% endif %}
         </div>
     </div>
@@ -54,7 +79,7 @@
             <form method="POST" action="{% url 'create-message' thread.pk %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <button class="fa fa-paper-plane" type="submit"></button>
+                <button class="fa fa-paper-plane float-right" type="submit"></button>
             </form>
         </div>
     </div>
